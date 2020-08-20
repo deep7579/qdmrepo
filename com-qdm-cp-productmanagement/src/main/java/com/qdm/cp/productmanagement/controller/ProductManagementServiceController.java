@@ -21,7 +21,11 @@ public class ProductManagementServiceController {
 
 	@Autowired
 	public ProductManagementService productManagementService;
-	
+
+	@GetMapping("/services/getAllServices")
+	public List<CSService> getAllServices(CSService csService) {
+		return productManagementService.getAllServices(csService);
+	}
 	
 	@PostMapping("/services")
 	public CSService addService(@RequestBody CSService csService) {
@@ -29,11 +33,7 @@ public class ProductManagementServiceController {
 
 	}
 
-
-	@GetMapping("/services/getAllServices")
-	public List<CSService> getAllServices(CSService csService) {
-		return productManagementService.getAllServices(csService);
-	}
+	
 
 	
 	@PutMapping("/services/{serviceId}")
@@ -44,3 +44,8 @@ public class ProductManagementServiceController {
 	}
 
 }
+
+
+
+
+
