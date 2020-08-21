@@ -14,6 +14,8 @@ public class ProductManagementService {
 
 @Autowired
  public ServiceRepository serviceRepository;
+
+private static List<CSService> csServices;
  
  
 public List<CSService> getAllServices() {
@@ -25,8 +27,19 @@ public List<CSService> getAllServices() {
 	 return serviceRepository.save(csService);
  }
  
- public Optional<CSService> getServicesById(int id) {
-	 return serviceRepository.findById(id);
+ public CSService findById(int id) {
+	 for(CSService service : csServices){
+         if(service.getServiceId() == id){
+             return service;
+         }
+     }
+     
+	 return null;
+ }
+ 
+ public void updateService(CSService service) {
+     int index = csServices.indexOf(service);
+     csServices.set(index, service);
  }
  public CSService activateService(CSService csService) {
 	 return serviceRepository.save(csService);
