@@ -3,6 +3,7 @@ package com.qdm.cp.productmanagement.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,17 +20,19 @@ import com.qdm.cp.productmanagement.service.ProductManagementService;
 @RequestMapping("/qdm/careProvider/productManagement")
 public class ProductManagementServiceController {
 
+	
 	@Autowired
 	public ProductManagementService productManagementService;
-
+	
 	@GetMapping("/services/getAllServices")
-	public List<CSService> getAllServices(CSService csService) {
-		return productManagementService.getAllServices(csService);
+	public  ResponseEntity<List<CSService>> getAllServices() {
+		List<CSService> service=productManagementService.getAllServices();
+		return new  ResponseEntity<List<CSService>>(service,HttpStatus.OK);
 	}
 	
 	@PostMapping("/services")
-	public CSService addService(@RequestBody CSService csService) {
-		return productManagementService.saveService(csService);
+	public  ResponseEntity<CSService> addService(@RequestBody CSService csService) {
+		return new ResponseEntity<CSService> (productManagementService.saveService(csService),HttpStatus.CREATED);
 
 	}
 
@@ -37,9 +40,10 @@ public class ProductManagementServiceController {
 
 	
 	@PutMapping("/services/{serviceId}")
-	public ResponseEntity<CSService> modifyService(@RequestBody CSService csService, @PathVariable int serviceId) {
+	public ResponseEntity<CSService> modifyService(@RequestBody CSService csService, @PathVariable("id") int serviceId) {
+		//CSService service=productManagementService.getServicesById(serviceId);
 		CSService service = new CSService();
-		service.setServiceId(345);
+		service.setName("Eye_treatment");;
 		return ResponseEntity.ok(service);
 	}
 
