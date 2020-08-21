@@ -6,13 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qdm.cp.productmanagement.entity.CSOffer;
+import com.qdm.cp.productmanagement.entity.CSService;
 import com.qdm.cp.productmanagement.service.ProductManagementOfferService;
+
 @RestController
 @RequestMapping("qdm/cp/productManagement")
 public class ProductManagementOfferController {
@@ -21,13 +25,27 @@ public class ProductManagementOfferController {
 
 	@GetMapping("/offers/getAllOffers")
 	public ResponseEntity<List<CSOffer>> getAllOffer() {
-		List<CSOffer> offers=productOfferService.getAllOffer();
-		return new ResponseEntity<List<CSOffer>>(offers,HttpStatus.OK);
+		List<CSOffer> offers = productOfferService.getAllOffer();
+		return new ResponseEntity<List<CSOffer>>(offers, HttpStatus.OK);
 	}
-	
-	@PostMapping("/offers")
+
+	@PostMapping("/offers/add")
 	public ResponseEntity<?> addOffer(@RequestBody CSOffer csOffer) {
-		return new ResponseEntity<CSOffer>(productOfferService.saveOffer(csOffer),HttpStatus.CREATED);
+		return new ResponseEntity<CSOffer>(productOfferService.saveOffer(csOffer), HttpStatus.CREATED);
+
+	}
+
+	@PutMapping("/offer/modify/{serviceId}")
+	public ResponseEntity<CSOffer> modifyService(@RequestBody CSOffer csOffer, @PathVariable("id") int offerId) {
+		CSOffer offerData = productOfferService.findById(offerId);
+		if (offerData == null) {
+			return new ResponseEntity<CSOffer>(HttpStatus.NOT_FOUND);
+		}
+
+		offerData.setName(csOffer.getName());
+		offerData.setStatus(csOffer.getStatus());
+		productOfferService.saveOffer(offerData);
+		return new ResponseEntity<CSOffer>(offerData, HttpStatus.OK);
 
 	}
 

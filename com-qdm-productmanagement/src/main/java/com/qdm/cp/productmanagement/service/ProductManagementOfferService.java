@@ -32,7 +32,7 @@ public class ProductManagementOfferService {
 		 return null;
 	 }
 	 
-	 public void updateService(CSOffer service) {
+	 public void updateOffer(CSOffer service) {
 	     int index = csOffer.indexOf(service);
 	     csOffer.set(index, service);
 	 }

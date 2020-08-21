@@ -29,13 +29,13 @@ public class ProductManagementServiceController {
 		return new ResponseEntity<List<CSService>>(service, HttpStatus.OK);
 	}
 
-	@PostMapping("/services")
+	@PostMapping("/services/add")
 	public ResponseEntity<CSService> addService(@RequestBody CSService csService) {
 		return new ResponseEntity<CSService>(productManagementService.saveService(csService), HttpStatus.CREATED);
 
 	}
 
-	@PutMapping("/services/{serviceId}")
+	@PutMapping("/services/modify/{serviceId}")
 	public ResponseEntity<CSService> modifyService(@RequestBody CSService csService,
 			@PathVariable("id") int serviceId) {
 		CSService service = productManagementService.findById(serviceId);

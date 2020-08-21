@@ -33,7 +33,7 @@ public class ProductManagementProductService {
 		 return null;
 	 }
 	 
-	 public void updateService(CSProduct service) {
+	 public void updateProduct(CSProduct service) {
 	     int index = csProduct.indexOf(service);
 	     csProduct.set(index, service);
 	 }

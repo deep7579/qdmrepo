@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qdm.cp.productmanagement.entity.CSPackage;
+import com.qdm.cp.productmanagement.entity.CSService;
 import com.qdm.cp.productmanagement.service.ProductManagementPackageService;
+
 @RestController
 @RequestMapping("qdm/cp/productManagement")
 public class ProductManagementPackageController {
@@ -22,20 +24,36 @@ public class ProductManagementPackageController {
 	private ProductManagementPackageService managementPackageService;
 
 	@GetMapping("/packages/getAllPackages")
-	public ResponseEntity< List<CSPackage>> getAllPackage() {
-		List<CSPackage> packages=managementPackageService.getAllPackage();
-		return new ResponseEntity<List<CSPackage>>(packages,HttpStatus.OK);
+	public ResponseEntity<List<CSPackage>> getAllPackage() {
+		List<CSPackage> packages = managementPackageService.getAllPackage();
+		return new ResponseEntity<List<CSPackage>>(packages, HttpStatus.OK);
 	}
-	
-	@PostMapping("/packages")
+
+	@PostMapping("/packages/add")
 	public ResponseEntity<?> addPackage(@RequestBody CSPackage csPackage) {
-		return new ResponseEntity<CSPackage>( managementPackageService.savePackage(csPackage),HttpStatus.CREATED);
+		return new ResponseEntity<CSPackage>(managementPackageService.savePackage(csPackage), HttpStatus.CREATED);
 
 	}
-	
-	
 
-	
+	@PutMapping("/package/modify/{packageId}")
+	public ResponseEntity<CSPackage> modifyService(@RequestBody CSPackage csPackage,
+			@PathVariable("id") int packageId) {
+		CSPackage packageData = managementPackageService.findById(packageId);
 
+		if (packageData == null) {
+			return new ResponseEntity<CSPackage>(HttpStatus.NOT_FOUND);
+		}
+
+		packageData.setName(csPackage.getName());
+		packageData.setDiscountPercentage(csPackage.getDiscountPercentage());
+		packageData.setCareProvider(csPackage.getCareProvider());
+		packageData.setCareProviderCategory(csPackage.getCareProviderCategory());
+		packageData.setCsDurationType(csPackage.getCsDurationType());
+		packageData.setCsService(csPackage.getCsService());
+
+		managementPackageService.updatePackage(packageData);
+		return new ResponseEntity<CSPackage>(packageData, HttpStatus.OK);
+
+	}
 
 }

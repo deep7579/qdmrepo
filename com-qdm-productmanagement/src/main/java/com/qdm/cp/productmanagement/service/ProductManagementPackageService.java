@@ -31,7 +31,7 @@ public class ProductManagementPackageService {
 		return null;
 	}
 
-	public void updateService(CSPackage service) {
+	public void updatePackage(CSPackage service) {
 		int index = csPackage.indexOf(service);
 		csPackage.set(index, service);
 	}
