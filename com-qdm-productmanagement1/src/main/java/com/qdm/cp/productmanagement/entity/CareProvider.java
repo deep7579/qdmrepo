@@ -1,12 +1,8 @@
 package com.qdm.cp.productmanagement.entity;
 
 import java.sql.Blob;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -23,13 +19,10 @@ private String inChargeName;
 private long mobile;
 private String address;
 private String email;
+private CSProduct csProduct;
+private CSOffer csOffer;
 
-@OneToMany(cascade = CascadeType.ALL)
-@JoinColumn(name="careprovider_fid",referencedColumnName = "careProviderId")
-List<CSProduct> csProduct;
 
-@OneToMany(cascade = CascadeType.ALL)
-@JoinColumn(name="careprovide_fid",referencedColumnName = "careProviderId")
-List<CSOffer> csOffer;
+
 
 }
