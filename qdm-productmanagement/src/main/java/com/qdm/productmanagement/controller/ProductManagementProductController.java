@@ -23,9 +23,10 @@ public class ProductManagementProductController {
 	@Autowired
 	private ProductManagementProductService productMangementService;
 
-	@GetMapping("/product/getAllProducts")
-	public ResponseEntity<List<CSProduct>> getAllProduct() {
-		List<CSProduct> product = productMangementService.getAllProduct();
+	@GetMapping("/product/getAll/{pageNo}/{pageSize}")
+	public ResponseEntity<List<CSProduct>> getAllProduct(@PathVariable("pageSize") int pageSize,
+			@PathVariable("pageNo") int pageNo) {
+		List<CSProduct> product = productMangementService.getAllProduct(pageSize, pageNo);
 		return new ResponseEntity<List<CSProduct>>(product, HttpStatus.OK);
 	}
 

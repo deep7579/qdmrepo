@@ -1,6 +1,7 @@
 package com.qdm.productmanagement.entity;
 
 import java.sql.Blob;
+import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,11 +13,19 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Table(name = "Care_Provider")
+@Table(name = "tbl_Care_Provider")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class CareProvider {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

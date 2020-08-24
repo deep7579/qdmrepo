@@ -8,13 +8,17 @@ import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Table(name="CS_Duration_Type")
+@Table(name="tbl_CS_Duration_Type")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class CSDurationType {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

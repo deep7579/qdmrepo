@@ -14,20 +14,27 @@ import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 @Entity
-@Table(name="CS_Service")
+@Table(name="tbl_cs_Service")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class CSService {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int serviceId;
+	
 	private String name;
+	
 	private double amount;
+	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="cservice_fid",referencedColumnName = "serviceId")
 	List<CareProvider> careProvider;
@@ -35,8 +42,9 @@ public class CSService {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "service_fid",referencedColumnName = "serviceId")
 	List<CSCategory> careProviderCategory;
-	/*
-	 * private String updateUser; private int updateDate;
-	 */
+	
+	private String updateUser; 
+	private Date updateDate;
+	
 
 }

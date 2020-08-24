@@ -18,14 +18,15 @@ import com.qdm.productmanagement.entity.CSService;
 import com.qdm.productmanagement.service.ProductManagementOfferService;
 
 @RestController
-@RequestMapping("qdm/cp/productManagement")
+@RequestMapping("qdm/productManagement")
 public class ProductManagementOfferController {
 	@Autowired
 	private ProductManagementOfferService productOfferService;
 
-	@GetMapping("/offers/getAllOffers")
-	public ResponseEntity<List<CSOffer>> getAllOffer() {
-		List<CSOffer> offers = productOfferService.getAllOffer();
+	@GetMapping("/offers/getAll/{pageNo}/{pageSize}")
+	public ResponseEntity<List<CSOffer>> getAllOffer(@PathVariable("pageSize") int pageSize,
+			@PathVariable("pageNo") int pageNo) {
+		List<CSOffer> offers = productOfferService.getAllOffer(pageSize, pageNo);
 		return new ResponseEntity<List<CSOffer>>(offers, HttpStatus.OK);
 	}
 

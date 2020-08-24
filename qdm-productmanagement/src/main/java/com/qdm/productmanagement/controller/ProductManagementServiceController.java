@@ -15,18 +15,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.qdm.productmanagement.entity.CSService;
 import com.qdm.productmanagement.service.ProductManagementService;
+import com.qdm.productmanagement.viewbean.ServicesList;
 
 @RestController
-@RequestMapping("/qdm/careProvider/productManagement")
+@RequestMapping("/qdm/productManagement")
 public class ProductManagementServiceController {
 
 	@Autowired
 	public ProductManagementService productManagementService;
 
-	@GetMapping("/services/getAllServices/{pageNo}/{pageSize}")
-	public ResponseEntity<List<CSService>> getAllServices(@PathVariable ("pageSize") int pageSize, @PathVariable ("pageNo") int pageNo) {
-		List<CSService> service = productManagementService.getAllServices(pageSize, pageNo);
-		return new ResponseEntity<List<CSService>>(service, HttpStatus.OK);
+	@GetMapping("/services/getAll/{pageNo}/{pageSize}")
+	public ResponseEntity<?> getAllServices(@PathVariable("pageSize") int pageSize,
+			@PathVariable("pageNo") int pageNo) {
+		ServicesList service = productManagementService.getAllServices(pageSize, pageNo);
+		return new ResponseEntity<ServicesList>(service, HttpStatus.OK);
 	}
 
 	@PostMapping("/services/add")
@@ -35,21 +37,21 @@ public class ProductManagementServiceController {
 
 	}
 
-	
-	  @PutMapping("/services/modify/{serviceId}") public ResponseEntity<CSService>
-	  modifyService(@RequestBody CSService csService,
-	  
-	  @PathVariable("id") int serviceId) { CSService service =
-	  productManagementService.findById(serviceId); if (service == null) { return
-	  new ResponseEntity<CSService>(HttpStatus.NOT_FOUND); }
-	  
-	  service.setName(csService.getName());
-	  service.setAmount(csService.getAmount());
-	  service.setCareProvider(csService.getCareProvider());
-	  service.setCareProviderCategory(csService.getCareProviderCategory());
-	  productManagementService.updateService(service);
-	  
-	  return new ResponseEntity<CSService>(service, HttpStatus.OK); }
-	 
+	@PutMapping("/services/modify/{serviceId}")
+	public ResponseEntity<CSService> modifyService(@RequestBody CSService csService,
+			@PathVariable("id") int serviceId) {
+		CSService service = productManagementService.findById(serviceId);
+		if (service == null) {
+			return new ResponseEntity<CSService>(HttpStatus.NOT_FOUND);
+		}
+
+		service.setName(csService.getName());
+		service.setAmount(csService.getAmount());
+		service.setCareProvider(csService.getCareProvider());
+		service.setCareProviderCategory(csService.getCareProviderCategory());
+		productManagementService.updateService(service);
+
+		return new ResponseEntity<CSService>(service, HttpStatus.OK);
+	}
 
 }

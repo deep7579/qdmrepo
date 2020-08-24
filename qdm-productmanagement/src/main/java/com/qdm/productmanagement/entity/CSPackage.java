@@ -14,13 +14,17 @@ import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Table(name = "CS_Package")
+@Table(name = "tbl_CS_Package")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class CSPackage {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
